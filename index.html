@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Hashtag Copy Tool</title>
+  <title>Fact Hashtag Copier</title>
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
@@ -17,23 +17,31 @@
       margin-bottom: 40px;
       font-size: 24px;
     }
-    .box {
+    .section {
       background: #fff;
       border: 1px solid #ddd;
       border-radius: 8px;
       padding: 16px;
-      margin-bottom: 20px;
+      margin-bottom: 30px;
       box-shadow: 0 1px 4px rgba(0,0,0,0.05);
     }
-    .box h2 {
+    .section h2 {
       margin: 0 0 10px;
       font-size: 18px;
+    }
+    .title {
+      font-weight: bold;
+      margin-bottom: 10px;
     }
     .hashtags {
       font-family: monospace;
       font-size: 14px;
-      margin-bottom: 12px;
       color: #555;
+      margin-bottom: 12px;
+    }
+    .buttons {
+      display: flex;
+      gap: 10px;
     }
     button {
       background-color: #007BFF;
@@ -51,50 +59,97 @@
 </head>
 <body>
 
-  <h1>Copy Hashtags</h1>
+  <h1>Auto Hashtag + Title Copier</h1>
 
-  <div class="box">
-    <h2>🔮 Deep Facts</h2>
-    <div class="hashtags" id="deep">#DeepFacts #InnerThoughts #FYP #ForYou #RealTalk</div>
-    <button onclick="copyText('deep')">Copy</button>
-  </div>
-
-  <div class="box">
-    <h2>🧠 Psychology Facts</h2>
-    <div class="hashtags" id="psych">#PsychologyFacts #HumanMind #ForYouPage #ViralVideo #MindBlown</div>
-    <button onclick="copyText('psych')">Copy</button>
-  </div>
-
-  <div class="box">
-    <h2>💘 Crush Facts</h2>
-    <div class="hashtags" id="crush">#CrushFacts #LoveVibes #ForYou #FYPシ #Relatable</div>
-    <button onclick="copyText('crush')">Copy</button>
-  </div>
-
-  <div class="box">
-    <h2>💁‍♀️ Girl Facts</h2>
-    <div class="hashtags" id="girl">#GirlFacts #SheKnows #ForYouPage #TikTokDaily #GirlTalk</div>
-    <button onclick="copyText('girl')">Copy</button>
-  </div>
-
-  <div class="box">
-    <h2>❤️ Relationship Facts</h2>
-    <div class="hashtags" id="relationship">#RelationshipFacts #ModernLove #FYP #DatingStruggles #HeartFeels</div>
-    <button onclick="copyText('relationship')">Copy</button>
-  </div>
-
-  <div class="box">
+  <div class="section" id="male">
     <h2>👱‍♂️ Male Facts</h2>
-    <div class="hashtags" id="male">#MaleFacts #HeFeelsToo #ForYou #MensMentalHealth #RelatableContent</div>
-    <button onclick="copyText('male')">Copy</button>
+    <div class="title" id="maleTitle">Male Fact #1</div>
+    <div class="hashtags" id="maleText">#MaleFacts #HeFeelsToo #ForYou #MensMentalHealth #RelatableContent</div>
+    <div class="buttons">
+      <button onclick="copyAll('male')">Copy</button>
+      <button onclick="nextTitle('male')">Next</button>
+    </div>
+  </div>
+
+  <div class="section" id="deep">
+    <h2>🔮 Deep Facts</h2>
+    <div class="title" id="deepTitle">Deep Fact #1</div>
+    <div class="hashtags" id="deepText">#DeepFacts #InnerThoughts #FYP #ForYou #RealTalk</div>
+    <div class="buttons">
+      <button onclick="copyAll('deep')">Copy</button>
+      <button onclick="nextTitle('deep')">Next</button>
+    </div>
+  </div>
+
+  <div class="section" id="psych">
+    <h2>🧠 Psychology Facts</h2>
+    <div class="title" id="psychTitle">Psychology Fact #1</div>
+    <div class="hashtags" id="psychText">#PsychologyFacts #HumanMind #ForYouPage #ViralVideo #MindBlown</div>
+    <div class="buttons">
+      <button onclick="copyAll('psych')">Copy</button>
+      <button onclick="nextTitle('psych')">Next</button>
+    </div>
+  </div>
+
+  <div class="section" id="crush">
+    <h2>💘 Crush Facts</h2>
+    <div class="title" id="crushTitle">Crush Fact #1</div>
+    <div class="hashtags" id="crushText">#CrushFacts #LoveVibes #ForYou #FYPシ #Relatable</div>
+    <div class="buttons">
+      <button onclick="copyAll('crush')">Copy</button>
+      <button onclick="nextTitle('crush')">Next</button>
+    </div>
+  </div>
+
+  <div class="section" id="girl">
+    <h2>💁‍♀️ Girl Facts</h2>
+    <div class="title" id="girlTitle">Girl Fact #1</div>
+    <div class="hashtags" id="girlText">#GirlFacts #SheKnows #ForYouPage #TikTokDaily #GirlTalk</div>
+    <div class="buttons">
+      <button onclick="copyAll('girl')">Copy</button>
+      <button onclick="nextTitle('girl')">Next</button>
+    </div>
+  </div>
+
+  <div class="section" id="relationship">
+    <h2>❤️ Relationship Facts</h2>
+    <div class="title" id="relationshipTitle">Relationship Fact #1</div>
+    <div class="hashtags" id="relationshipText">#RelationshipFacts #ModernLove #FYP #DatingStruggles #HeartFeels</div>
+    <div class="buttons">
+      <button onclick="copyAll('relationship')">Copy</button>
+      <button onclick="nextTitle('relationship')">Next</button>
+    </div>
   </div>
 
   <script>
-    function copyText(id) {
-      const text = document.getElementById(id).textContent;
-      navigator.clipboard.writeText(text)
-        .then(() => alert("Copied!"))
-        .catch(err => alert("Copy failed: " + err));
+    const counters = {
+      male: 1,
+      deep: 1,
+      psych: 1,
+      crush: 1,
+      girl: 1,
+      relationship: 1
+    };
+
+    function nextTitle(topic) {
+      counters[topic]++;
+      document.getElementById(`${topic}Title`).innerText =
+        `${capitalize(topic)} Fact #${counters[topic]}`;
+    }
+
+    function copyAll(topic) {
+      const title = document.getElementById(`${topic}Title`).innerText;
+      const tags = document.getElementById(`${topic}Text`).innerText;
+      const text = `${title}\n${tags}`;
+      navigator.clipboard.writeText(text).then(() => {
+        alert("Copied to clipboard!");
+      }).catch(err => {
+        alert("Failed to copy: " + err);
+      });
+    }
+
+    function capitalize(word) {
+      return word.charAt(0).toUpperCase() + word.slice(1);
     }
   </script>
 
