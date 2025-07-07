@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hashtag Copy Tool</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f9f9f9;
+      color: #333;
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 40px;
+      font-size: 24px;
+    }
+    .box {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 20px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    }
+    .box h2 {
+      margin: 0 0 10px;
+      font-size: 18px;
+    }
+    .hashtags {
+      font-family: monospace;
+      font-size: 14px;
+      margin-bottom: 12px;
+      color: #555;
+    }
+    button {
+      background-color: #007BFF;
+      border: none;
+      color: white;
+      padding: 8px 14px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Copy Hashtags</h1>
+
+  <div class="box">
+    <h2>🔮 Deep Facts</h2>
+    <div class="hashtags" id="deep">#DeepFacts #InnerThoughts #FYP #ForYou #RealTalk</div>
+    <button onclick="copyText('deep')">Copy</button>
+  </div>
+
+  <div class="box">
+    <h2>🧠 Psychology Facts</h2>
+    <div class="hashtags" id="psych">#PsychologyFacts #HumanMind #ForYouPage #ViralVideo #MindBlown</div>
+    <button onclick="copyText('psych')">Copy</button>
+  </div>
+
+  <div class="box">
+    <h2>💘 Crush Facts</h2>
+    <div class="hashtags" id="crush">#CrushFacts #LoveVibes #ForYou #FYPシ #Relatable</div>
+    <button onclick="copyText('crush')">Copy</button>
+  </div>
+
+  <div class="box">
+    <h2>💁‍♀️ Girl Facts</h2>
+    <div class="hashtags" id="girl">#GirlFacts #SheKnows #ForYouPage #TikTokDaily #GirlTalk</div>
+    <button onclick="copyText('girl')">Copy</button>
+  </div>
+
+  <div class="box">
+    <h2>❤️ Relationship Facts</h2>
+    <div class="hashtags" id="relationship">#RelationshipFacts #ModernLove #FYP #DatingStruggles #HeartFeels</div>
+    <button onclick="copyText('relationship')">Copy</button>
+  </div>
+
+  <div class="box">
+    <h2>👱‍♂️ Male Facts</h2>
+    <div class="hashtags" id="male">#MaleFacts #HeFeelsToo #ForYou #MensMentalHealth #RelatableContent</div>
+    <button onclick="copyText('male')">Copy</button>
+  </div>
+
+  <script>
+    function copyText(id) {
+      const text = document.getElementById(id).textContent;
+      navigator.clipboard.writeText(text)
+        .then(() => alert("Copied!"))
+        .catch(err => alert("Copy failed: " + err));
+    }
+  </script>
+
+</body>
+</html>
